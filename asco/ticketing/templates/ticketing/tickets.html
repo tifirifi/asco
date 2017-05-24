@@ -1,0 +1,34 @@
+{% extends 'ticketing/base.html' %}
+{% block content %}
+    <div class="row">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <td>Id</td>
+                    <td>Tytul</td>
+                    <td>Data rejestracji</td>
+                    <td>Ticket ID</td>
+                    <td>Priorytet</td>
+                    <td>Kategoria</td>
+                </tr>
+            </thead>
+            {% for ticket in tickets %}
+
+            <tbody>
+                <tr>
+
+                    <td>{{ticket.pk}} </td>
+                    <td><a href="{% url 'ticket_detail' ticket.pk %}">{{ticket.title}}</a></td>
+                    <td>{{ticket.created_date|date:"d.m.y" }}</td>
+                    <td>{{ticket.code}}</td>
+                    <td>{{ticket.priority}}</td>
+                    <td>{{ticket.category}}</td>
+
+                </tr>
+
+            </tbody>
+
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}
