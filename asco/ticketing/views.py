@@ -23,7 +23,7 @@ def ticket_detail(request, pk=None):
 def ticket_list(request):
     query = Ticket.objects.all()
     context = {
-        'tickets':query
+        'ticketss':query
         }
     return render(request, 'ticketing/tickets.html', context)
 
