@@ -1,14 +1,72 @@
 {% extends 'ticketing/base.html' %}
 {% block content %}
-    <br />
-<br />
-    
 <br>
+<br>  
+<br>
+<div class="row">
+    <div class="col-sm-3">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <form action="myservlet.do" method="POST">
+                    <select name="myselect" id="myselect" onchange="this.form.submit()">
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                        <option value="4">Four</option>
+                    </select>
+                </form>
+            </div>
+        </div>
+</div>
+    <div class="col-sm-3">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <form action="myservlet.do" method="POST">{% csrf_token %}
+                    <select name="myselect" id="myselect" onchange="this.form.submit()">
+                        
+                    </select>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-sm-3">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <form action="myservlet.do" method="POST">
+                    <select name="myselect" id="myselect" onchange="this.form.submit()">
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                        <option value="4">Four</option>
+                    </select>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-sm-3">
+        <div class="panel panel-default">
+            <div class="panel-body">Chane Status 
+                <form action="myservlet.do" method="POST">
+                    <select name="myselect" id="myselect" onchange="this.form.submit()">
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                        <option value="4">Four</option>
+                    </select>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
     <div class="col-sm-10">
     <div class="panel panel-default panel-{{ detail.get_priority_css_class }}">
     <div class="panel-heading"> Tytuł: {{detail.title}}<button type="button" class="btn btn-primary pull-right" onclick="window.location.href='edit/'" >Edytuj</button> 
      <br>
-    Date: {{detail.created_date|date:"d.m.y" }} <br />
+    Created Date: {{detail.created_date|date:"d.m.y" }} <br />
+    Updated: {{ detail.updated|timesince }} ago <br />
     Status: {{ detail.status }}
     </div>
     <div class="panel-body">
@@ -16,10 +74,12 @@
         Priority:{{detail.priority}}  <br>
         Category: {{detail.category}} <br>
         Description: {{detail.description}} </br>
+        
             
     
     </div>
 
+    </div>
     </div>
     </div>
 

@@ -9,5 +9,11 @@ class TicketForm(forms.ModelForm):
             "description",
             "category",
             "priority",
+            
+        }
+class ChangeTicketStatus(forms.ModelForm):
+    class Meta:
+        model = Ticket
+        fields = {
             "status",
         }

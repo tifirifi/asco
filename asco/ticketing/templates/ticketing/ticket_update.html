@@ -3,7 +3,7 @@
 <div class="row">
     <h1> New Ticket </h1>
     <form method="post" class="post-form">{% csrf_token %}
-    {{ form.as_p }}
+    {{ form.status }}
     <button type="submit" class="save btn btn-default">Zapisz</button>
     </form>
 </div>

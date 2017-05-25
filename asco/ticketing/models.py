@@ -31,7 +31,9 @@ class Ticket(models.Model):
         max_length=200,
         verbose_name=_('Title'),
     )
-    description = models.TextField(null=True, verbose_name=_('Description'))
+    description = models.TextField(
+        null=True, 
+        verbose_name=_('Description'))
     code = models.CharField(
         max_length=40,
         null=True,
@@ -42,6 +44,11 @@ class Ticket(models.Model):
         auto_now=False,
         auto_now_add=True,
         verbose_name=_('Created date')
+    )
+    updated = models.DateTimeField(
+        auto_now = True,
+        auto_now_add = False,
+        verbose_name=_('Updated')
     )
     category = models.ForeignKey('Category')
     priority = models.IntegerField(

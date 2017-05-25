@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect, redirect
 from .models import Ticket
-from .forms import TicketForm
-# Create your views here.
+from .forms import TicketForm, ChangeTicketStatus
+
 
 def index(request):
     tickets = Ticket.objects.all()
@@ -34,15 +34,22 @@ def ticket_update(request, pk=None):
 
 def ticket_detail(request, pk=None):
     instance = get_object_or_404(Ticket, pk=pk)
+    form = ChangeTicketStatus(request.POST or None, instance = instance)
+    if form.is_valid():
+        ticket = form.save(commit=False)
+        ticket.user = request.user
+        ticket.save
+        return redirect(ticket_detail, pk = ticket.pk)
     context = {
-        "detail": instance
+        'detail': instance,
+        'form': form
     }
     return render(request, 'ticketing/ticket_detail.html', context)
 
 def ticket_list(request):
-    query = Ticket.objects.all().exclude(status=Ticket.CLOSED_STATUS)
+    query = Ticket.objects.all()
     context = {
-        'ticketss':query
+        'tickets':query
         }
     return render(request, 'ticketing/tickets.html', context)
 
