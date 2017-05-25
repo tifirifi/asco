@@ -1,7 +1,6 @@
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect, redirect
 from .models import Ticket
 from .forms import TicketForm
-
 # Create your views here.
 
 def index(request):

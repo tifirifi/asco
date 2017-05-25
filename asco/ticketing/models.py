@@ -4,10 +4,26 @@ from django.core.urlresolvers import reverse
 
 
 class Ticket(models.Model):
+    OPEN_STATUS = 1
+    REOPENED_STATUS = 2
+    RESOLVED_STATUS = 3
+    CLOSED_STATUS = 4
+    DUPLICATE_STATUS = 5
+
+    STATUS_CHOICES = (
+        (OPEN_STATUS, _('Open')),
+        (REOPENED_STATUS, _('Reopened')),
+        (RESOLVED_STATUS, _('Resolved')),
+        (CLOSED_STATUS, _('Closed')),
+        (DUPLICATE_STATUS, _('Duplicate')),
+    )
+    
     PRIORITY_NAMES = (
-        ('low', _('Low')),
-        ('medium', _('Medium')),
-        ('high', _('High')),
+        (1, _('1. Critical')),
+        (2, _('2. High')),
+        (3, _('3. Normal')),
+        (4, _('4. Low')),
+        (5, _('5. Very Low')),
     )
 
     user = models.ForeignKey('auth.User')
@@ -28,13 +44,32 @@ class Ticket(models.Model):
         verbose_name=_('Created date')
     )
     category = models.ForeignKey('Category')
-    priority = models.CharField(
-        max_length=40,
+    priority = models.IntegerField(
         choices=PRIORITY_NAMES,
+        default = 3,
+        blank = 3,
         verbose_name=_('Priority'),
     )
-    status = models.ForeignKey('Status')
-
+    status = models.IntegerField(
+        choices=STATUS_CHOICES,
+        default = OPEN_STATUS,
+        verbose_name=_('Status')
+    )
+   
+    def _get_priority_css_class(self):
+        """
+        Return the boostrap class corresponding to the priority.
+        """
+        if self.priority == 2:
+            return "warning"
+        elif self.priority == 1:
+            return "danger"
+        elif self.priority == 5:
+            return "success"
+        else:
+            return "test"
+    get_priority_css_class = property(_get_priority_css_class)
+    
     def save(self, *args, **kwargs):
         if not self.code:
             super().save(*args, **kwargs)
@@ -62,9 +97,10 @@ class Category(models.Model):
         return self.name
 
 
-class Status(models.Model):
-    name = models.CharField(null=True, max_length=100,
+"""class Status(models.Model):
+   name = models.CharField(null=True, max_length=100,
                             verbose_name=_('Status'))
 
     def __str__(self):
-        return self.name
+        return self.name"""
+        
