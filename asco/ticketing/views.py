@@ -40,7 +40,7 @@ def ticket_detail(request, pk=None):
     return render(request, 'ticketing/ticket_detail.html', context)
 
 def ticket_list(request):
-    query = Ticket.objects.all()
+    query = Ticket.objects.all().exclude(status=Ticket.CLOSED_STATUS)
     context = {
         'tickets':query
         }
