@@ -1,0 +1,10 @@
+﻿{% extends 'ticketing/base.html' %}
+{% block content %}
+<div class="row">
+    <h1> New Ticket </h1>
+    <form method="post" class="post-form">{% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="save btn btn-default">Zapisz</button>
+    </form>
+</div>
+{% endblock %}

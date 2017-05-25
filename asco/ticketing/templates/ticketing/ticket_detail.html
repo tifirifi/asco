@@ -1,6 +1,9 @@
 {% extends 'ticketing/base.html' %}
 {% block content %}
-<div class="row">
+    <br />
+<br />
+
+    <button type="button" class="btn btn-primary" onclick="window.location.href='edit/'" >Edytuj</button>
     <table class="table table-hover">
         <thead>
             <tr>
@@ -29,5 +32,9 @@
 
         
     </table>
-</div>
+    
+        {{detail.description}}
+        
+   
+
 {% endblock %}

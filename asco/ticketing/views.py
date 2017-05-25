@@ -23,8 +23,15 @@ def ticket_create(request):
         }
     return render(request, 'ticketing/ticket_create.html', context )
 
-def ticket_update(request):
-    pass
+def ticket_update(request, pk=None):
+    instance = get_object_or_404(Ticket, pk = pk)
+    form = TicketForm(request.POST or None, instance = instance)
+    if form.is_valid():
+        ticket = form.save(commit = False)
+        ticket.user = request.user
+        ticket.save()
+        return redirect(ticket_detail, pk = ticket.pk)
+    return render(request, 'ticketing/ticket_update.html', {'form': form})
 
 def ticket_detail(request, pk=None):
     instance = get_object_or_404(Ticket, pk=pk)
