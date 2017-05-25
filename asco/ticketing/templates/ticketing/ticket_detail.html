@@ -1,33 +1,37 @@
 {% extends 'ticketing/base.html' %}
 {% block content %}
-<div class="row">
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <td>Id</td>
-                <td>Tytul</td>
-                <td>Data rejestracji</td>
-                <td>Ticket ID</td>
-                <td>Priorytet</td>
-                <td>Kategoria</td>
-            </tr>
-        </thead>
+    <br />
+<br />
+    
+<br>
+    <div class="col-sm-10">
+    <div class="panel panel-default panel-{{ detail.get_priority_css_class }}">
+    <div class="panel-heading"> Tytuł: {{detail.title}}<button type="button" class="btn btn-primary pull-right" onclick="window.location.href='edit/'" >Edytuj</button> 
+     <br>
+    Date: {{detail.created_date|date:"d.m.y" }} <br />
+    Status: {{ detail.status }}
+    </div>
+    <div class="panel-body">
+        ID: {{detail.pk}}<br>
+        Priority:{{detail.priority}}  <br>
+        Category: {{detail.category}} <br>
+        Description: {{detail.description}} </br>
+            
+    
+    </div>
 
-        <tbody>
-            <tr>
+    </div>
+    </div>
 
-                <td>{{detail.pk}} </td>
-                <td><a href="#">{{detail.title}}</a></td>
-                <td>{{detail.created_date|date:"d.m.y" }}</td>
-                <td>{{detail.code}}</td>
-                <td>{{detail.priority}}</td>
-                <td>{{detail.category}}</td>
+            
+                
+                
+                
 
-            </tr>
-
-        </tbody>
-
+           
+    
         
-    </table>
-</div>
+        
+   
+
 {% endblock %}
